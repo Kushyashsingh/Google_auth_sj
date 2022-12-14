@@ -4,7 +4,7 @@ const passport=require('passport')
 const jwt=require("jsonwebtoken");
 const cookieParser=require("cookie-parser");
 // var session = require('express-session')
-// const cookieSession=require('cookie-session')
+const cookieSession=require('cookie-session')
 
 const app=express()
 app.use(express.json());
@@ -14,10 +14,10 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
-// app.use(cookieSession({
-//   name:'tuto-session',
-//   keys:['key1','key2']
-// }))
+app.use(cookieSession({
+  name:'tuto-session',
+  keys:['key1','key2']
+}))
 
 require('./passport/passportSetup')
 require("./DB/connection");
@@ -60,7 +60,7 @@ app.get("/registration",loggedIn,(req, res,next) => {
 
 app.get("/google",passport.authenticate('google',{scope:['profile','email']}));
 
-app.get("/google/callback",passport.authenticate("google", { failureRedirect: "/failed" }),
+app.get("/google/callback",passport.authenticate("google", { session:false ,failureRedirect: "/failed" }),
   (req, res) => {
     const getEmail = req.user.emails[0].value;
     const emailDomain = getEmail.split("@");
