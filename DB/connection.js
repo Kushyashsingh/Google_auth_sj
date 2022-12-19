@@ -1,6 +1,5 @@
 const mongoose=require("mongoose");
 
-
 mongoose.connect(`mongodb+srv://kush_yashsingh:8887810076@cluster0.nkofpbx.mongodb.net/test`,{
     useNewUrlParser:true,
     useUnifiedTopology:true

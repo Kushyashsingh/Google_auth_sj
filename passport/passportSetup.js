@@ -1,6 +1,6 @@
 const passport=require('passport')
 const GoogleStrategy = require('passport-google-oauth2').Strategy
-
+var userProfile;
 passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
@@ -9,6 +9,7 @@ passport.use(new GoogleStrategy({
     passReqToCallback:true
 },
 function(req,accessToken,refreshToken,profile,done){
+    var userProfile=profile;
     console.log(profile)
     return done(null,profile)
 }

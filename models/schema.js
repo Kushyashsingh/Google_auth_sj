@@ -1,7 +1,14 @@
 const mongoose=require("mongoose");
 const jwt=require("jsonwebtoken");
 
-const userSchema= new mongoose.Schema({
+var userSchema= new mongoose.Schema({
+
+    name: {
+      type:  String,
+    },
+    profile:{
+       type: String,
+    },
     email:{
         type:String,
         required:true,
@@ -63,7 +70,10 @@ userSchema.methods.generateAuthtoken=async function(){
 
 
 
+var Register=mongoose.model("USER",userSchema);
 
-const Register=mongoose.model("USER",userSchema);
+var user = new Register()
+
+user.save(function(){})
 
 module.exports=Register;
